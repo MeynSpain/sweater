@@ -17,6 +17,10 @@
         <a class="nav-link" href="/user">User List</a>
       </li>
 
+      <li  class="nav-item" sec:authorize="hasAuthority('USER')">
+        <a class="nav-link" href="/user/profile">Profile</a>
+      </li>
+
       <div class="me-3" sec:authorize="hasAuthority('USER')">
         <div class="navbar-text " sec:authentication="name"></div>
       </div>

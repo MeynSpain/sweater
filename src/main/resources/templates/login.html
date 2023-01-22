@@ -18,6 +18,7 @@
     <h1>Login page</h1>
 
     <form th:action="@{/login}" method="post">
+
         <div class="form-group">
             <label> User Name : <input class="form-control" type="text" name="username"/> </label>
         </div>
@@ -25,7 +26,11 @@
         <div class="form-group">
             <label> Password: <input class="form-control" type="password" name="password"/> </label>
         </div>
+
+
+
         <div><input class="btn btn-primary mt-4" type="submit" value="Sign In"/></div>
+
     </form>
     <a class="btn btn-secondary mt-4" th:href="@{/registration}">Add new User</a>
 

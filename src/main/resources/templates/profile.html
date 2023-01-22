@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:insert="Blocks/metaHead :: metaHead"></head>
+<body>
+
+<div th:insert="Blocks/navBar :: navBar"></div>
+
+<div class="container mt-5">
+<h5 sec:authentication="name"></h5>
+  <form method="post">
+
+    <div class="form-group">
+      <label> Email: <input class="form-control" type="email" name="email" th:value="${email}" placeholder="some@some.com"/> </label>
+    </div>
+
+    <div class="form-group">
+      <label> Password: <input class="form-control" type="password" name="password"/> </label>
+    </div>
+
+    <div><input class="btn btn-primary mt-4" type="submit" value="Save"/></div>
+
+  </form>
+
+
+</div>
+
+<div th:insert="Blocks/JS :: Jscripts"></div>
+</body>
+</html>
+
+
