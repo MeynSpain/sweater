@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:insert="Blocks/metaHead :: metaHead"></head>
+
+<body>
+
+<div th:insert="Blocks/navBar :: navBar"></div>
+
+<div class="container mt-5">
+
+    <h1>List of users:</h1>
+    <br>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody th:each="element: ${users}">
+        <tr>
+            <td th:text="${element.getUsername()}"/>
+            <td th:text="${element.getRoles()}"/>
+            <td>
+                <a th:href="'/user/' + ${element.id}" th:text="edit"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div th:insert="Blocks/JS :: Jscripts"></div>
+
+</div>
+
+</body>
+</html>

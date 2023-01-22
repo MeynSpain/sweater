@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:insert="Blocks/metaHead :: metaHead"></head>
+<body>
+
+<div th:insert="Blocks/navBar :: navBar"></div>
+
+<div class="container mt-5">
+
+    <!--Фильтр-->
+
+    <form method="get" action="/main" class="form-inline">
+        <div class="row g-2">
+            <div class="col">
+                <input class="form-control" type="text" name="filter" th:value="${filter}"
+                       placeholder="Поиск по тегу">
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" type="submit">Найти</button>
+            </div>
+        </div>
+    </form>
+
+    <!--/Фильтр-->
+
+    <!--Добавление данных-->
+    <button class="btn btn-primary my-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+        Написать новое сообщение
+    </button>
+
+    <div class="collapse" id="collapseExample">
+        <div class="form-group mt-2" style="width: 25rem">
+            <form method="post" enctype="multipart/form-data">
+
+                <input type="text" class="form-control mt-2" name="text" placeholder="Введите сообщение">
+
+                <input type="text" class="form-control mt-2" name="tag" placeholder="Тэг">
+
+                <input type="file" name="file" class="form-control mt-2" id="customFile">
+
+                <button class="btn btn-primary mt-2" type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+    <!--/Добавление данных-->
+
+
+    <!--Вывод данных-->
+
+
+    <div th:each="element: ${messages}">
+
+        <div class="card-columns">
+
+            <div class="card border-primary mt-3" style="width: 18rem">
+
+                <div class="form-inline card-header">
+                    <p class="text-primary" th:text="'#' + ${element.tag}"/>
+                </div>
+
+                <div th:if="${element.filename}" class="card-img-top ">
+                    <img class="img-thumbnail img-fluid" th:src="'/img/' + ${element.filename}">
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text" th:text="${element.text}"/>
+                </div>
+
+
+
+                <div class="card-footer">
+                    <p class="text-end" th:text="${element.getAuthorName()}"/>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<!--/Вывод данных-->
+
+
+<div th:insert="Blocks/JS :: Jscripts"></div>
+</body>
+</html>
+
+

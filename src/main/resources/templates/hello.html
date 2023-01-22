@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <title>Hello World!</title>
+</head>
+<body>
+<h1 th:inline="text">Hello <span th:remove="tag"  sec:authentication="name">thymeleaf</span>!</h1>
+<div sec:authorize ="hasAuthority('USER')">
+  Only For Users
+</div>
+<br>
+<br>
+<div sec:authorize ="hasAuthority('ADMIN')">
+  Only for Admins
+</div>
+<br>
+<br>
+
+<form th:action="@{/logout}" method="post">
+  <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>
