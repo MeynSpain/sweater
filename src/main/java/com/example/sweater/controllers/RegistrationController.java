@@ -23,15 +23,23 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(User user, Model model) {
 
-        if (user.getPassword().trim().isEmpty()) {
-            return "Pusto";
-        }
+        String username = user.getUsername().trim();
+        String password = user.getPassword().trim();
+        String email = user.getEmail().trim();
 
-        if (!userService.addUser(user)) {
-            model.addAttribute("message", "User exists!");
-            return "registration";
-        }
+        //Проверяем все ли поля заполнены
+        if (username != null && !username.equals("")
+                && password != null && !password.equals("")
+                && email != null && !email.equals("")) {
 
+            //Если такой пользователь уже существует то выдем ошибку
+            if (!userService.addUser(user)) {
+                model.addAttribute("message", "User exists!");
+                return "registration";
+            }
+        } else {
+            model.addAttribute("message", "Не заполнены все неообходимые поля для регистрации!");
+        }
 
         return "redirect:/login";
     }

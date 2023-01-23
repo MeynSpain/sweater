@@ -1,7 +1,9 @@
 package com.example.sweater.service;
 
+import com.example.sweater.domain.Message;
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
+import com.example.sweater.repos.MessageRepo;
 import com.example.sweater.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +23,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     MailSender mailSender;
+
+    @Autowired
+    private MessageRepo messageRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -122,5 +127,24 @@ public class UserService implements UserDetailsService {
             sendMessage(user);
         }
 
+    }
+
+    public boolean existsById(Long id) {
+        return messageRepo.existsById(id);
+    }
+
+    public Message findById(Long id) {
+
+        Message message =  messageRepo.findById(id).orElseThrow();
+        return message;
+    }
+
+    public void updateMessage(Message message) {
+
+        messageRepo.save(message);
+    }
+
+    public void deleteMessage(Message message) {
+        messageRepo.delete(message);
     }
 }

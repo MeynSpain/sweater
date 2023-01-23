@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:insert="Blocks/metaHead :: metaHead"></head>
+<body>
+
+<div th:insert="Blocks/navBar :: navBar"></div>
+
+<div class="container mt-5">
+
+    <h1>Редактирование поста</h1>
+    <div class="form-group mt-2" th:each="element: ${message}">
+        <form method="post">
+            <input type="text" class="form-control mt-2" name="text" th:value="${element.getText()}" placeholder="Сообщение">
+
+            <input type="text" class="form-control mt-2" name="tag" th:value="${element.tag}" placeholder="Тег">
+
+            <div th:if="${message.getFilename()}" class="card border-primary mt-3" style="width: 18rem">
+                <img class="img-fluid img-thumbnail" th:src="'/img/' + ${message.getFilename()}">
+            </div>
+
+            <div th:if="${message.getFilename()}" class="form-check form-switch mt-2">
+                <input class="form-check-input" type="checkbox" name="delete"  role="switch" id="delete">
+                <input type="hidden" name="delete" value="false">
+                <label class="form-check-label" for="delete">
+                    Удалить Изображение
+                </label>
+            </div>
+
+            <button class="btn btn-primary mt-2" type="submit">Сохранить</button>
+
+        </form>
+
+
+
+    </div>
+
+
+
+
+<!--    <img th:src="'/img/' + ${message.getFilename()}">-->
+
+</div>
+
+<div th:insert="Blocks/JS :: Jscripts"></div>
+</body>
+</html>
+
+

@@ -7,7 +7,13 @@ import java.util.List;
 
 public interface MessageRepo extends CrudRepository<Message, Long> {
 
+    List<Message> findAll();
+
+    List<Message> findByTagOrderByIdDesc(String tag);
+
     List<Message> findByTag(String tag);
+
+    List<Message> findAllByOrderByIdDesc();
 
 
 }

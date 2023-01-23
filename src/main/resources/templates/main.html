@@ -6,7 +6,7 @@
 
 <div th:insert="Blocks/navBar :: navBar"></div>
 
-<div class="container mt-5">
+<div class="container mt-5 ">
 
     <!--Фильтр-->
 
@@ -23,6 +23,7 @@
     </form>
 
     <!--/Фильтр-->
+
 
     <!--Добавление данных-->
     <button class="btn btn-primary my-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
@@ -49,34 +50,53 @@
 
     <!--Вывод данных-->
 
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div th:each="element: ${messages}">
 
-    <div th:each="element: ${messages}">
+            <div class="col">
+                <div class="card border-primary mt-3 h-100" style="width: 18rem">
 
-        <div class="card-columns">
+                    <div class="form-inline card-header">
 
-            <div class="card border-primary mt-3" style="width: 18rem">
+                        <div class="d-flex justify-content-end dropdown" sec:authorize="hasAuthority('ADMIN')">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" id="cardDropDownMenuButton" aria-expanded="false">
+                                ...
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="cardDropDownMenuButton">
+                                <li>
+                                    <a class="dropdown-item" th:href="'/user/post/' + ${element.id}">Редактировать</a>
+                                </li>
 
-                <div class="form-inline card-header">
-                    <p class="text-primary" th:text="'#' + ${element.tag}"/>
+
+                                <li>
+                                    <form method="post" th:action="'/main/' + ${element.id}">
+                                        <button type="submit" class="dropdown-item">Удалить</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <b class="d-flex justify-content-start text-primary" th:text="'#' + ${element.tag}"/>
+
+                    </div>
+
+                    <div th:if="${element.filename}" class="card-img-top ">
+                        <img class="img-thumbnail img-fluid" th:src="'/img/' + ${element.filename}">
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-text" th:text="${element.text}"/>
+                    </div>
+
+
+                    <div class="card-footer">
+                        <p class="text-end" th:text="${element.getAuthorName()}"/>
+                    </div>
+
+
                 </div>
-
-                <div th:if="${element.filename}" class="card-img-top ">
-                    <img class="img-thumbnail img-fluid" th:src="'/img/' + ${element.filename}">
-                </div>
-
-                <div class="card-body">
-                    <p class="card-text" th:text="${element.text}"/>
-                </div>
-
-
-
-                <div class="card-footer">
-                    <p class="text-end" th:text="${element.getAuthorName()}"/>
-                </div>
-
-
             </div>
-
 
         </div>
 
